@@ -1,0 +1,78 @@
+<?php
+
+/**
+ *
+ * @return multitype:multitype:string boolean NULL
+ */
+
+function civicrm_entity_actions_action_info() {
+
+  return array(
+    'civicrm_entity_actions_assign_activity_action' => array(
+      'label' => t('Assign Activity'),
+      'type' => 'civicrm_activity',
+      'configurable' => TRUE,
+    ),
+    'civicrm_entity_actions_unassign_activity_action' => array(
+      'label' => t('Unassign Activity'),
+      'type' => 'civicrm_activity',
+    ),
+  );
+}
+
+/**
+ *
+ * @param unknown $object
+ * @param array $context
+ */
+
+function civicrm_entity_actions_assign_activity_action(&$object, $context = array()) {
+  civicrm_api3('activity', 'create', array(
+    'id' => $object->id,
+    'assignee_contact_id' => $context['state']['entity_id'])
+  );
+}
+
+/**
+ *
+ * @param unknown $object
+ * @param array $context
+ */
+
+function civicrm_entity_actions_unassign_activity_action(&$object, $context = array()) {
+  if(!civicrm_initialize()) {
+    return;
+  }
+  civicrm_api3('activity', 'create', array(
+    'id' => $object->id,
+    'deleteActivityAssignment' => TRUE)
+  );
+}
+
+/**
+ *
+ * @param array $context
+ * @return multitype:string unknown
+ */
+
+function civicrm_entity_actions_assign_activity_action_form( $context = array()) {
+  $entities = _civicrm_entity_enabled_entities();
+  $entity = $entities[$context['entity_type']];
+  $form[$entity]['assignee_contact_id'] = array(
+    '#type' => 'entityreference',
+    '#title' => t('Assign To'),
+    '#era_entity_type' => 'civicrm_contact',
+  );
+  return $form;
+}
+
+/**
+ *
+ * @param unknown $form
+ * @param unknown $form_state
+ * @return multitype:NULL
+ */
+
+function civicrm_entity_actions_assign_activity_action_submit($form, $form_state) {
+  return array('state' => $form_state['values']['assignee_contact_id']);
+}
