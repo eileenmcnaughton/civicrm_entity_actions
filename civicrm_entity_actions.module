@@ -23,7 +23,7 @@ function civicrm_entity_actions_action_info() {
       'configurable' => TRUE,
     ),
     'civicrm_entity_actions_contact_remove_from_group_action' => array(
-      'label' => t('Remove ContactFrom Group'),
+      'label' => t('Remove Contact From Group'),
       'type' => 'civicrm_contact',
       'configurable' => TRUE,
     ),
