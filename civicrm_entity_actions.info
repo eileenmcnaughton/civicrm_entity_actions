@@ -1,8 +1,8 @@
-name = CiviCRM Entity Actions
-description = "Declare ad hoc actions to use with civicrm_entity (as we haven't yet decided how best to develop into CiviCRM Entity in a systematic way we are putting some ad hoc vbos in this module)"
+name = CiviCRM Entity Actions (DEPRECATED)
+description = "Please remove this version in favour of the version bundled with CiviCRM Entity."
 dependencies[] = civicrm
 dependencies[] = civicrm_entity
 dependencies[] = entityreference_autocomplete
 package = CiviCRM
 core = 7.x
-version = 7.x-4.2.beta1
+version = 7.x-2.0-unstable
